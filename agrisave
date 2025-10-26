@@ -1,0 +1,46 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# --- Page Setup ---
+st.set_page_config(page_title="FreshConnect", layout="wide")
+st.title("🚜 FreshConnect: Real-Time Produce Market")
+
+# --- FAKE IOT DATA ---
+# This simulates your live sensor data
+current_temp = 22.5
+current_humidity = 65.0
+
+# --- LIVE IoT DASHBOARD (The "Wow" Feature) ---
+st.header("IoT-Verified Freshness Dashboard")
+st.subheader("Live from Farmer Kumar's Tomato Crate")
+
+col1, col2 = st.columns(2)
+with col1:
+    st.metric(label="Live Temperature", value=f"{current_temp} °C", delta="-1.0 °C vs. alert")
+with col2:
+    st.metric(label="Live Humidity", value=f"{current_humidity} %", delta="5.0 % vs. safe")
+
+st.info("This data is streaming LIVE from our IoT sensor, proving this produce is stored in perfect conditions.")
+
+# --- MARKETPLACE LISTING (The Core App) ---
+st.header("Hyperlocal Produce Listings")
+
+# Create a fake DataFrame for the marketplace
+data = {
+    'Produce': ['Tomatoes', 'Onions', 'Milk'],
+    'Seller': ['Farmer Kumar', 'Vendor Lakshmi', 'Anand Dairy'],
+    'Price (per kg/L)': ['₹40', '₹30', '₹52'],
+    'Quantity': ['20 kg', '50 kg', '30 L'],
+    'Distance': ['2 km', '1.5 km', '4 km']
+}
+df = pd.DataFrame(data)
+st.dataframe(df, use_container_width=True)
+
+if st.button("Contact Farmer Kumar"):
+    st.success("Calling Farmer Kumar... (Demo)")
+
+# --- COLD STORAGE FINDER ---
+st.header("Find Cold Storage Nearby")
+st.map(pd.DataFrame({'lat': [17.4065], 'lon': [78.4772]})) # Map centered on Hyderabad (demo)
+st.write("Sri Balaji Cold Storage - 2.5 km away (200kg capacity available)")
